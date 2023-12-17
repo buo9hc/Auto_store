@@ -71,14 +71,16 @@
                 <p>Robot 2</p>
                 <p>Robot 3</p>
                 <p>Robot 4</p>
-                <form action="warehouse_management.php" method="post" name="importFormName" id="importFormID" onsubmit="handleSubmit();return false;"required> 
+                <form action="import_item.php" method="post" name="importFormName" id="importFormID" onsubmit="handleSubmit();return false;"required> 
                     <h3>Arrange orders into warehouse</h3>
                     <input type="text" name="order_name" id="od_name" placeholder="Enter order name..."> <br><br>
                     <input type="text" name="order_code" id="od_code" placeholder="Enter order code..."> <br><br>
                     <label for="od_coordinate">Select the location to store order</label>
-                    <select name="location" id="od_coordinate">
-                        <option value="2 3">2x3</option>
-                    </select><br><br>
+                    <div>
+                        <select name="location" id="od_coordinate">
+                            <option id="coordinate_option"></option>
+                        </select>
+                    </div><br>
                     <input type="submit" value="submit">
                 </form>
                 <form action="">
@@ -101,8 +103,8 @@
           </section>          
         <script>
             function addTable() {
-                var colunms = 5;
-                var rows = 5;
+                var colunms = 30;
+                var rows = 15;
                 var table = document.getElementById("myDynamictable");
                 var tableBody = document.getElementById("myTableBody");
                 table.appendChild(tableBody);
@@ -128,7 +130,7 @@
                 else
                 {
                     var sentData = $('#importFormID').serialize();
-                    $.post('warehouse_management.php',sentData)
+                    $.post('import_item.php.php',sentData)
                     alert("Import successfully");
                 }
                 $("#importFormID")[0].reset();
