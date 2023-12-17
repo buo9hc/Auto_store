@@ -36,15 +36,30 @@
             }
             /*Form style*/
             input[type=text]{
+                width: 100%;
+                padding: 5px;
                 padding-top: 2px;
                 padding-bottom: 2px;
                 border: none;
                 border-radius: 6px;
             }
             select{
+                width: 100%;
                 padding: 5px 10px;
                 border: none;
                 border-radius: 6px;
+            }
+            input[type=submit] {
+                width: 100%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 5px 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            input[type="submit"]:hover{
+                background-color: #45a049;
             }
         </style>
     </head>
@@ -56,17 +71,22 @@
                 <p>Robot 2</p>
                 <p>Robot 3</p>
                 <p>Robot 4</p>
-                <form action="">
+                <form action="warehouse_management.php" method="post" name="importFormName" id="importFormID" onsubmit="handleSubmit();return false;"required> 
                     <h3>Arrange orders into warehouse</h3>
-                    <input type="text" name="order_name" placeholder="Enter order name...">
-                    <label for="LocationID">Select the location to store order</label>
-                    <select name="location" id="LocationID">
-                        <option value="DynamicOption">Dynamicoption</option>
-                    </select>
+                    <input type="text" name="order_name" id="od_name" placeholder="Enter order name..."> <br><br>
+                    <input type="text" name="order_code" id="od_code" placeholder="Enter order code..."> <br><br>
+                    <label for="od_coordinate">Select the location to store order</label>
+                    <select name="location" id="od_coordinate">
+                        <option value="2 3">2x3</option>
+                    </select><br><br>
+                    <input type="submit" value="submit">
                 </form>
                 <form action="">
                     <h3>Search and get order</h3>
-                    <input type="text" name="get_order_name" placeholder="Enter order name...">
+                    <input type="text" name="get_order_name" placeholder="Enter order name..."><br><br>
+                    <select name="location" id="LocationID">
+                        <option value="DynamicOption">Dynamicoption</option>
+                    </select><br><br>
                 </form>
             </function>
             
@@ -81,8 +101,8 @@
           </section>          
         <script>
             function addTable() {
-                var colunms = 30;
-                var rows = 30;
+                var colunms = 5;
+                var rows = 5;
                 var table = document.getElementById("myDynamictable");
                 var tableBody = document.getElementById("myTableBody");
                 table.appendChild(tableBody);
@@ -97,6 +117,21 @@
                         tr.appendChild(td);
                     }
                 }
+            }
+            function handleSubmit () {
+                var name = document.forms["importFormName"]["order_name"].value;
+                var code = document.forms["importFormName"]["order_code"].value;
+                if ((name == "" || name == null) && (code == "" || code == null)) {
+                    alert("Order name and order code must be filled out");
+                    return false;
+                }
+                else
+                {
+                    var sentData = $('#importFormID').serialize();
+                    $.post('warehouse_management.php',sentData)
+                    alert("Import successfully");
+                }
+                $("#importFormID")[0].reset();
             }
             addTable();
         </script>
