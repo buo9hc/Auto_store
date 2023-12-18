@@ -28,11 +28,11 @@
             }
             /* Style the content */
             map {
-                -webkit-flex: 5;
-                -ms-flex: 5;
-                flex: 5;
+                -webkit-flex: 3;
+                -ms-flex: 3;
+                flex: 3;
                 background-color: #d1f2eb;
-                padding: 10px;
+                padding: 10px 100px;
             }
             /*Form style*/
             input[type=text]{
@@ -78,7 +78,9 @@
                     <label for="od_coordinate">Select the location to store order</label>
                     <div>
                         <select name="location" id="od_coordinate">
-                            <option id="coordinate_option"></option>
+                            <option id="coordinate_option" value="2 3">2x3</option>
+                            <option id="coordinate_option" value="4 9">4x9</option>
+                            <option id="coordinate_option" value="15 15">15x5</option>
                         </select>
                     </div><br>
                     <input type="submit" value="submit">
@@ -103,7 +105,7 @@
           </section>          
         <script>
             function addTable() {
-                var colunms = 30;
+                var colunms = 20;
                 var rows = 15;
                 var table = document.getElementById("myDynamictable");
                 var tableBody = document.getElementById("myTableBody");
@@ -113,14 +115,15 @@
                     tableBody.appendChild(tr);
                     for (let col = 0; col < colunms; col++) {
                         var td = document.createElement('TD');
-                        td.width = '50';
-                        td.height = '50';                        
+                        td.width = '55';
+                        td.height = '55';                        
                         td.appendChild(document.createTextNode(" "));
                         tr.appendChild(td);
                     }
                 }
             }
             function handleSubmit () {
+                var sentData = $('#importFormID').serialize();
                 var name = document.forms["importFormName"]["order_name"].value;
                 var code = document.forms["importFormName"]["order_code"].value;
                 if ((name == "" || name == null) && (code == "" || code == null)) {
@@ -129,8 +132,7 @@
                 }
                 else
                 {
-                    var sentData = $('#importFormID').serialize();
-                    $.post('import_item.php.php',sentData)
+                    $.post('import_item.php',sentData)
                     alert("Import successfully");
                 }
                 $("#importFormID")[0].reset();
