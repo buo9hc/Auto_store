@@ -1,7 +1,7 @@
 <?php
     include("connect2server.php");
 
-    for ($row=1; $row <= 20 ; $row++) { 
+    for ($row=1; $row <= 15 ; $row++) { 
         for($col=1; $col<= 20; $col++) {
             $sql = "UPDATE warehouse_block SET x$col = NULL WHERE No=$row";
             // echo $sql."\n";
